@@ -213,21 +213,20 @@ impl Tunnel {
         } = self;
 
         let index = rng.next();
-        let peer = Tunn::new(
+        let tunnel = Tunn::new(
             private.clone(),
             config.public_key,
             None,
             config.persistent_keepalive,
             index,
             Some(rate_limiter.clone()),
-        )
-        .map(|tunnel| Peer {
+        );
+        let peer =  Peer {
             config,
             tunnel,
             index,
             active: true,
-        })
-        .map_err(io::Error::other)?;
+        };
 
         let slot = peers.iter_mut().find(|p| !p.active);
         if let Some(slot) = slot {
