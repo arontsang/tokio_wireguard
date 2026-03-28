@@ -131,7 +131,7 @@ impl<E: Evented> IO<E> {
                     self.wake.read.register(cx.waker());
                     e.register_read_waker(&self.wakers.read)
                 } else if interest.is_writable() {
-                    self.wake.read.register(cx.waker());
+                    self.wake.write.register(cx.waker());
                     e.register_write_waker(&self.wakers.write)
                 }
             }

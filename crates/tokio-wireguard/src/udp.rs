@@ -118,7 +118,7 @@ impl UdpSocket {
         target: SocketAddr,
     ) -> Poll<Result<usize>> {
         self.socket
-            .poll_io(Interest::READABLE, cx, |s| Self::send_to_io(s, buf, target))
+            .poll_io(Interest::WRITABLE, cx, |s| Self::send_to_io(s, buf, target))
     }
     /// [`tokio::net::UdpSocket::try_send_to`]
     pub fn try_send_to(&self, buf: &mut [u8], target: SocketAddr) -> Result<usize> {
